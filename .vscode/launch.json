@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Remote Minikube",
+            "type": "go",
+            "request": "launch",
+            "mode": "remote",
+            "remotePath": "/opt/go/src/local/myorg/myapp",
+            "port": 32345,
+            "host": "192.168.99.100",
+            "program": "${workspaceRoot}",
+            "env": {},
+            "args": [],
+            "preLaunchTask": "deployToMinikube"
+        },
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${workspaceRoot}"
+        }
+    ]
+}
