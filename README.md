@@ -30,3 +30,4 @@ This repo is a template to get started writing golang applications designed to r
 
 - Windows support
 - Try to reduce complexity/remove background.sh
+- Find a way to watch stdout of background.sh instead of just `sleep 10`

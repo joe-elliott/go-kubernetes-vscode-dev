@@ -22,7 +22,7 @@ echo "run" >$pipe
 
 echo "*** Waiting ***"
 
-sleep 15
+sleep 10
 
 echo "*** Exiting ***"
 
