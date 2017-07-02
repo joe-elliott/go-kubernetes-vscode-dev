@@ -32,3 +32,13 @@ This repo is a template to get started writing golang applications designed to r
 - Try to reduce complexity/remove background.sh
 - Find a way to watch stdout of background.sh instead of just `sleep 10`
 - Application is unable to see container filesystem
+
+### Caveats
+
+Using telepresence this project does a really good job of mimicing the in-cluster environment.  The one exception to this rule is that you app will not have access to the in container file system.  For instance, if you attempt to use the kubernetes go client you will receive the following error:
+
+`open /var/run/secrets/kubernetes.io/serviceaccount/token: no such file or directory`
+
+Options:
+- Do something like this project: https://github.com/number101010/go-minikube-vscode-dev.  It's way slower and bug prone but it literally runs your application in the cluster.
+- In the case of the go client I was able to `docker cp` the `/var/run/secrets` directory to my local machine and use it.  Gorpy but functional.  Do what you will.
