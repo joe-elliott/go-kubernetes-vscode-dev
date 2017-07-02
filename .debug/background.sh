@@ -13,6 +13,7 @@ if [ ! -d ".debug" ]; then
 fi
 
 trap "rm -f $pipe" EXIT
+trap "kubectl delete deploy $k8sdeploy" EXIT
 
 if [[ ! -p $pipe ]]; then
     mkfifo $pipe
