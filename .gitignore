@@ -2,3 +2,5 @@ debug
 vendor
 main
 telepresence.log
+.debug/go-debug.out
+.debug/tele.out
