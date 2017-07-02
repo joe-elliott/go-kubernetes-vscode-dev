@@ -35,7 +35,7 @@ This repo is a template to get started writing golang applications designed to r
 
 ### Caveats
 
-Using telepresence this project does a really good job of mimicing the in-cluster environment.  The one exception to this rule is that you app will not have access to the in container file system.  For instance, if you attempt to use the kubernetes go client you will receive the following error:
+Using telepresence this project does a really good job of mimicing the in-cluster environment.  The one exception to this rule is that your app will not have access to the in container file system.  For instance, if you attempt to use the kubernetes go client you will receive the following error:
 
 `open /var/run/secrets/kubernetes.io/serviceaccount/token: no such file or directory`
 
