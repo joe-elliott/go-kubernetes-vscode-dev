@@ -22,8 +22,8 @@ echo "run" >$pipe
 
 echo "*** Waiting ***"
 
-sleep 20
+# read the pipe until background.sh writes "running" to it
+line="notrunning"
+until [ "$line" == 'running' ]; do read line <$pipe; done
 
-echo "*** Exiting ***"
-
-#until kubectl logs go-debug | grep "API server listening at:" > /dev/null; do sleep 1; done
+echo "*** Running ***"

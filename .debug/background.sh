@@ -34,6 +34,10 @@ do
         until cat $teleout | grep "API server listening at:" > /dev/null; do sleep 1; done
 
         echo "*** debugger live ***"
+
+        # tell task.sh that we're ready to go
+        echo "running" >$pipe
+        sleep 2
     fi
 done
 
