@@ -3,8 +3,8 @@
 # this command assumes it will be run in the root of your project.
 #  note the pathing on the location of the runDelve.sh script
 
-pipe=.debug/telepresence-debug
-teleout=.debug/tele.out
+pipe=.debug/tmp-pipe
+teleout=.debug/tmp-tele.out
 
 trap "rm -f $pipe" EXIT
 
