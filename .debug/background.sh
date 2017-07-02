@@ -30,9 +30,9 @@ do
 
         echo "*** killing old ***"
 
-        pkill -f telepresence
-        pkill -f dlv
-        
+        pkill -f $PWD/debug
+        pkill -f "runDelve.sh"
+
         echo "*** running new ***"
 
         rm $teleout
