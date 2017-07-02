@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# this command assumes it will be run in the root of your project.
+#  note the pathing on the location of the runDelve.sh script
+
 pipe=/tmp/telepresence-debug
 
 trap "rm -f $pipe" EXIT
@@ -24,7 +27,7 @@ do
 
         telepresence --method=inject-tcp \
                      --expose=2345 \
-                     --run bash -c unset DYLD_INSERT_LIBRARIES && dlv debug --listen=0.0.0.0:2345 --headless=true --log=true &
+                     --run .debug/runDelve.sh &
 
     fi
 done
