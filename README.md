@@ -11,19 +11,21 @@ This repo is a template to get started writing golang applications designed to r
 
 ### How to use
 
-1. Make sure that kubectl is pointed to the environment you want to debug in.  Uncomment lines in `./debug/telepresence.sh` to have the script auto start minikube if desired.
+1. Make sure that kubectl is pointed to the environment you want to debug in.  Uncomment lines in `./debug/task.sh` to have the script auto start minikube if desired.
 2. Type some Go
-3. F5
-4. Application output will show up in the "Output" tab. 
+3. In the Terminal window run `.debug/background.sh`.  Your applications output will show up in this window.  You only need to do this once.
+  - Remove `--log=true` to reduce debugger spam
+4. F5
+5. Application output will show up in the "Output" tab. 
 
 ### How it works
 
 - The "Kubernetes/Telepresence" launch configuration has `deployToTelepresence` setup as a prelaunch task
-- `deployToTelepresence` runs `./debug/telepresence.sh`
-- Telepresence is magic
+- `deployToTelepresence` runs `./debug/task.sh`
+- `task.sh` writes to a unix pipe
+- `background.sh` reads from the pipe and runs telepresence
 - The vscode Go extension will connect to localhost on 2345.
 
 ### Issues/Improvements
 
 - Windows support
-- Instead of waiting 30 seconds.  Watch stdout in telepresence.sh
