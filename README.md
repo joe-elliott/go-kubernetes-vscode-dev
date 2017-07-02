@@ -29,3 +29,4 @@ This repo is a template to get started writing golang applications designed to r
 ### Issues/Improvements
 
 - Windows support
+- Try to reduce complexity/remove background.sh
