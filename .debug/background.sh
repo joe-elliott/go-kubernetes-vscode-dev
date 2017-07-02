@@ -14,6 +14,8 @@ fi
 
 trap "rm -f $pipe" EXIT
 trap "kubectl delete deploy $k8sdeploy" EXIT
+trap "pkill -f $PWD/debug" EXIT
+trap "pkill -f runDelve.sh" EXIT
 
 if [[ ! -p $pipe ]]; then
     mkfifo $pipe
@@ -31,7 +33,7 @@ do
         echo "*** killing old ***"
 
         pkill -f $PWD/debug
-        pkill -f "runDelve.sh"
+        pkill -f runDelve.sh
 
         echo "*** running new ***"
 
