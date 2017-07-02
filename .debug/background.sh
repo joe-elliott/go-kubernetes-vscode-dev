@@ -5,6 +5,7 @@
 
 pipe=.debug/tmp-pipe
 teleout=.debug/tmp-tele.out
+k8sdeploy=vscode-go-debug
 
 if [ ! -d ".debug" ]; then
   echo "This script expects to be run in the root directory of the project."
@@ -34,7 +35,13 @@ do
         echo "*** running new ***"
 
         rm $teleout
-        telepresence --method=inject-tcp --expose=2345 --run .debug/runDelve.sh | tee /dev/tty > $teleout &
+
+        kubectl get deploy $k8sdeploy
+        if [ $? -eq 0 ]; then
+            telepresence --deployment $k8sdeploy --method=inject-tcp --expose=2345 --run .debug/runDelve.sh | tee /dev/tty > $teleout &
+        else
+            telepresence --new-deployment $k8sdeploy --method=inject-tcp --expose=2345 --run .debug/runDelve.sh | tee /dev/tty > $teleout &
+        fi
 
         until cat $teleout | grep "API server listening at:" > /dev/null; do sleep 1; done
 
