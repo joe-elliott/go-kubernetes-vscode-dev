@@ -10,11 +10,22 @@ if [ $? -ne 0 ]; then
   minikube start
 fi
 
-telepresence --method=inject-tcp \
-             --expose=2345 \
-             --new-deployment go-debug-telepresence \
-             --run bash -c unset DYLD_INSERT_LIBRARIES && dlv debug --listen=0.0.0.0:2345 --headless=true --log=true &
+echo "*** running new ***"
 
-sleep 30
+pipe=/tmp/telepresence-debug
+
+if [[ ! -p $pipe ]]; then
+    echo "telepresenceBackground not running"
+    exit 1
+fi
+
+echo "run" >$pipe
+
+echo "*** sleeping ***"
+
+sleep 15
+
+echo "*** exiting ***"
+
 
 #until kubectl logs go-debug | grep "API server listening at:" > /dev/null; do sleep 1; done
