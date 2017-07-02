@@ -14,7 +14,7 @@ echo "*** Writing to Pipe ***"
 pipe=.debug/tmp-pipe
 
 if [[ ! -p $pipe ]]; then
-    echo "telepresenceBackground not running"
+    echo "telepresenceBackground not running.  Go to the Terminal and run `.debug/background.sh`"
     exit 1
 fi
 
@@ -27,3 +27,4 @@ line="notrunning"
 until [ "$line" == 'running' ]; do read line <$pipe; done
 
 echo "*** Running ***"
+echo " Switch to the terminal to see application output."

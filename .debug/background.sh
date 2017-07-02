@@ -6,6 +6,11 @@
 pipe=.debug/tmp-pipe
 teleout=.debug/tmp-tele.out
 
+if [ ! -d ".debug" ]; then
+  echo "This script expects to be run in the root directory of the project."
+  exit 1
+fi
+
 trap "rm -f $pipe" EXIT
 
 if [[ ! -p $pipe ]]; then
@@ -40,5 +45,3 @@ do
         sleep 2
     fi
 done
-
-rm -f $pipe
