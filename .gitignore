@@ -1,5 +1,4 @@
 debug
 vendor
 main
-telepresence.log
 .debug/tmp-*

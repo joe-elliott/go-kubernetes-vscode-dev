@@ -5,6 +5,7 @@
 
 pipe=.debug/tmp-pipe
 teleout=.debug/tmp-tele.out
+telelogfile=.debug/tmp-tele.log
 k8sdeploy=vscode-go-debug
 
 if [ ! -d ".debug" ]; then
@@ -14,6 +15,7 @@ fi
 
 trap "rm -f $pipe" EXIT
 trap "kubectl delete deploy $k8sdeploy" EXIT
+trap "kubectl delete service $k8sdeploy" EXIT
 trap "pkill -f $PWD/debug" EXIT
 trap "pkill -f runDelve.sh" EXIT
 
@@ -39,12 +41,8 @@ do
 
         rm $teleout
 
-        kubectl get deploy $k8sdeploy
-        if [ $? -eq 0 ]; then
-            telepresence --deployment $k8sdeploy --method=inject-tcp --expose=2345 --run .debug/runDelve.sh | tee /dev/tty > $teleout &
-        else
-            telepresence --new-deployment $k8sdeploy --method=inject-tcp --expose=2345 --run .debug/runDelve.sh | tee /dev/tty > $teleout &
-        fi
+        kubectl delete deploy $k8sdeploy
+        telepresence --new-deployment $k8sdeploy --method=vpn-tcp --expose=2345 --run .debug/runDelve.sh --logfile $telelogfile | tee /dev/tty > $teleout &
 
         until cat $teleout | grep "API server listening at:" > /dev/null; do sleep 1; done
 
