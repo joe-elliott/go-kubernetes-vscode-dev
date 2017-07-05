@@ -21,6 +21,7 @@ fi
 echo "run" >$pipe
 
 echo "*** Waiting ***"
+echo " Telepresence requires sudo and may be waiting for you to type your password.  Check the terminal."
 
 # read the pipe until background.sh writes "running" to it
 line="notrunning"
