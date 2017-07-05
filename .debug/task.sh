@@ -14,7 +14,7 @@ echo "*** Writing to Pipe ***"
 pipe=.debug/tmp-pipe
 
 if [[ ! -p $pipe ]]; then
-    echo "telepresenceBackground not running.  Go to the Terminal and run `.debug/background.sh`"
+    echo "telepresenceBackground not running.  Go to the Terminal and run .debug/background.sh"
     exit 1
 fi
 
