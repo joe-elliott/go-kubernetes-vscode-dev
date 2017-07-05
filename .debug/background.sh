@@ -19,6 +19,9 @@ trap "kubectl delete service $k8sdeploy" EXIT
 trap "pkill -f $PWD/debug" EXIT
 trap "pkill -f runDelve.sh" EXIT
 
+kubectl delete deploy $k8sdeploy
+kubectl delete service $k8sdeploy
+
 if [[ ! -p $pipe ]]; then
     mkfifo $pipe
 fi
@@ -42,6 +45,7 @@ do
         rm $teleout
 
         kubectl delete deploy $k8sdeploy
+        kubectl delete service $k8sdeploy
         telepresence --new-deployment $k8sdeploy --method=vpn-tcp --expose=2345 --run .debug/runDelve.sh --logfile $telelogfile | tee /dev/tty > $teleout &
 
         until cat $teleout | grep "API server listening at:" > /dev/null; do sleep 1; done
