@@ -1,4 +1,4 @@
-FROM golang
+FROM golang:1.11
 
 ENV GOPATH=/opt/go:$GOPATH \
     PATH=/opt/go/bin:$PATH
