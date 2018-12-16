@@ -4,5 +4,6 @@
         "main": true,
         "glide.lock": true,
         "vendor": true
-    }
+    },
+    "git.ignoreLimitWarning": true
 }
