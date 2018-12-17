@@ -1,6 +1,8 @@
 # go-kubernetes-vscode-dev
 
-This repo is a template to get started writing golang applications designed to run in Kubernetes.  It requires access to an existing kubernetes cluster.  If you do not have access to a kubernetes cluster than I'd recommend trying minikube (https://kubernetes.io/docs/setup/minikube/).
+This repo is a template to get started writing golang applications designed to run in Kubernetes.  It requires access to an existing kubernetes cluster.
+
+If you do not have access to a Kubernetes cluster than I'd recommend trying minikube (https://kubernetes.io/docs/setup/minikube/).
 
 ### Dependencies
 
@@ -25,6 +27,6 @@ This repo is a template to get started writing golang applications designed to r
 
 ### Previous Iteration
 
-Previously this project used a unix pipe to pass commands back and forth between two different shell scripts.  It was complicated and didn't work sometimes, but it made for a nice UX when it did.  This has been scrapped in favor of the above approach.  If you are interested in the way things used tobe done:  
+Previously this project used a unix pipe to pass commands back and forth between two different shell scripts.  It was complicated and didn't work sometimes, but it made for a nice UX when it did.  This has been scrapped in favor of the above approach.  If you are interested in the way things used to be done:  
 
 https://github.com/number101010/go-kubernetes-vscode-dev/tree/a296d80d84bf4ff4297b0bffe32dd1b852be7a0c
