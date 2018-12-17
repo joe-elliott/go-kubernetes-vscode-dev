@@ -30,3 +30,7 @@
   unused-packages = true
 
 
+
+[[constraint]]
+  name = "github.com/op/go-logging"
+  version = "1.0.0"

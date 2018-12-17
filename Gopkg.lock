@@ -13,13 +13,6 @@
   version = "v1.2.0"
 
 [[projects]]
-  digest = "1:2edd2416f89b4e841df0e4a78802ce14d2bc7ad79eba1a45986e39f0f8cb7d87"
-  name = "github.com/golang/glog"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "44145f04b68cf362d9c4df2182967c2275eaefed"
-
-[[projects]]
   digest = "1:4c0989ca0bcd10799064318923b9bc2db6b4d6338dd75f3f2d86c3511aaaf5cf"
   name = "github.com/golang/protobuf"
   packages = [
@@ -95,6 +88,14 @@
   pruneopts = "UT"
   revision = "4b7aa43c6742a2c18fdef89dd197aaae7dac7ccd"
   version = "1.0.1"
+
+[[projects]]
+  digest = "1:5b3b29ce0e569f62935d9541dff2e16cc09df981ebde48e82259076a73a3d0c7"
+  name = "github.com/op/go-logging"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b2cb9fa56473e98db8caba80237377e83fe44db5"
+  version = "v1"
 
 [[projects]]
   branch = "master"
@@ -384,7 +385,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/golang/glog",
+    "github.com/op/go-logging",
     "k8s.io/client-go/kubernetes",
     "k8s.io/client-go/rest",
   ]
