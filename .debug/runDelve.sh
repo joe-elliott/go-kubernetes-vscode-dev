@@ -12,5 +12,5 @@ while true; do
     dlv debug --listen=0.0.0.0:2345 --headless=true --api-version 2
   } <&-
 
-  read -p "----Press enter to continue----"
+  read -rep $'\n### Debugging Ended:\n  1) Make changes and press enter to debug again\n  2) Ctrl+C to exit the container'
 done
