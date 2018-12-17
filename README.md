@@ -1,40 +1,30 @@
 # go-kubernetes-vscode-dev
 
-This repo is a template to get started writing golang applications designed to run in Kubernetes.  It requires that minikube (https://github.com/kubernetes/minikube) is already installed.
+This repo is a template to get started writing golang applications designed to run in Kubernetes.  It requires access to an existing kubernetes cluster.  If you do not have access to a kubernetes cluster than I'd recommend trying minikube (https://kubernetes.io/docs/setup/minikube/).
 
 ### Dependencies
 
 - VSCode/Go Extensions: https://code.visualstudio.com/docs/languages/go
-- Delve: https://github.com/derekparker/delve
 - Telepresence: http://www.telepresence.io/
-- Minikube (Optional): https://kubernetes.io/docs/getting-started-guides/minikube/
 
 ### How to use
 
-1. Make sure that kubectl is pointed to the environment you want to debug in.  Uncomment lines in `./debug/task.sh` to have the script auto start minikube if desired.
+1. Make sure that kubectl is pointed to the environment you want to debug in.
 2. Type some Go
-3. In the Terminal window run `.debug/background.sh`.  Your applications output will show up in this window.  You only need to do this once.
-  Remove `--log=true` to reduce debugger spam
-4. F5
-5. Application output will show up in the "Output" tab. 
-
-### How it works
-
-- The "Kubernetes/Telepresence" launch configuration has `deployToTelepresence` setup as a prelaunch task
-- `deployToTelepresence` runs `./debug/task.sh`
-- `task.sh` writes to a unix pipe
-- `background.sh` reads from the pipe and runs telepresence
-- The vscode Go extension will connect to localhost on 2345.
+3. In the Terminal window run `.debug/debug.sh`.  Your applications output will show up in this window.  You only need to do this once.
+4. When you see `API server listening at: [::]:2345` in the terminal window Delve is ready.
+5. F5
+6. After Debugging is complete make changes as necessary and then hit `Enter` to restart Delve.
 
 ### Caveats
 
-Using telepresence this project does a really good job of mimicing the in-cluster environment.  One major exception to this rule is that your app will not have access to the in container file system.  For instance, if you attempt to use the kubernetes go client you will receive the following error:
+- Telepresence mounts the actual container's file system at `$TELEPRESENCE_ROOT`.  Note that `runDelve.sh` copies the service account information from this mounted filesystem into an expected spot in the telepresence container.  There is probably a better solution somewhere, but this works just for simple Kubernetes development.
+  - Telepresence's documentation on how to deal with this issue: http://www.telepresence.io/howto/volumes.html.
+- The Telepresence `--docker-run` parameter does not provide a way to set the service account.  If you want to access the Kubernetes API you will need to setup the default service account in a way that allows you to make the queries you would like.
+- Other documented limitations here:  http://www.telepresence.io/reference/limitations.html
 
-`open /var/run/secrets/kubernetes.io/serviceaccount/token: no such file or directory`
+### Previous Iteration
 
-Options:
-- Do something like this project: https://github.com/number101010/go-minikube-vscode-dev.  It's way slower and bug prone but it literally runs your application in the cluster.
-- Telepresence's documentation on how to deal with this issue: http://www.telepresence.io/howto/volumes.html
-- In the case of the go client I was able to `docker cp` the `/var/run/secrets` directory to my local machine and use it.  Gorpy but functional.  Do what you will.
+Previously this project used a unix pipe to pass commands back and forth between two different shell scripts.  It was complicated and didn't work sometimes, but it made for a nice UX when it did.  This has been scrapped in favor of the above approach.  If you are interested in the way things used tobe done:  
 
-Other documented limitations here:  http://www.telepresence.io/reference/limitations.html
+https://github.com/number101010/go-kubernetes-vscode-dev/tree/a296d80d84bf4ff4297b0bffe32dd1b852be7a0c
