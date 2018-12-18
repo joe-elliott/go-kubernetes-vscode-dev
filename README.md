@@ -11,12 +11,14 @@ If you do not have access to a Kubernetes cluster than I'd recommend trying mini
 
 ### How to use
 
-1. Make sure that kubectl is pointed to the environment you want to debug in.
+1. Make sure that kubectl is pointed to the environment you want to debug in.  Telepresence will create a deployment in the cluster you are pointed at.  Be aware.
 2. Type some Go
 3. In the Terminal window run `.debug/debug.sh`.  Your applications output will show up in this window.  You only need to do this once.
 4. When you see `API server listening at: [::]:2345` in the terminal window Delve is ready.
-5. F5
-6. After Debugging is complete make changes as necessary and then hit `Enter` to restart Delve.
+5. Smack F5 in VSCode to connect to Delve on port `2345`.
+6. After debugging you will be presented with a prompt to either start a new debug session or exit the container.
+
+Alternatively you can run `.debug/debug.sh --manual`.  This will start the Telepresence container and leave you at a command prompt.  From here you can debug Kubernetes networking issues, manage dependencies (`dep`), manually trigger a debug session (`.debug/runDelve.sh`), etc.
 
 ### Caveats
 

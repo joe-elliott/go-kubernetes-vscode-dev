@@ -3,10 +3,16 @@ if [ ! -d ".debug" ]; then
   exit 1
 fi
 
+bashCmd="-c .debug/runDelveLoop.sh"
+
+if [ "$1" == "--manual" ]; then
+   bashCmd=""
+fi
+
 docker build .debug -t vscode-go-debug
 
 telepresence --docker-run -v "$(pwd)":/opt/go/src/local/myorg/myapp \
                           -p 2345:2345 -it \
                           --cap-add=SYS_PTRACE \
                           vscode-go-debug \
-                          bash -c .debug/runDelve.sh 
+                          bash $bashCmd
